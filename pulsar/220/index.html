@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Surya Pongal</title>
+        <meta name="description" content="">
+        <script src="./js/aframe.min.js"></script>
+        <script src="./js/aframe-bmfont-text-component.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <a-scene auto-enter-vr>
+            <a-assets>
+                <img id="mute" src="assets/volume-mute.png">
+                <img id="unmute" src="assets/volume-high_2.png">
+                <img id="close" src="assets/close-circled.png">
+                <a-mixin id="cube" geometry="primitive: box"></a-mixin>
+                <a-mixin id="cube-hovered" material="color: magenta"></a-mixin>
+                <a-mixin id="cube-selected" material="color: cyan"></a-mixin>
+                <a-mixin id="red" material="color: red"></a-mixin>
+                <a-mixin id="green" material="color: green"></a-mixin>
+                <a-mixin id="blue" material="color: blue"></a-mixin>
+                <a-mixin id="yellow" material="color: yellow"></a-mixin>
+                <a-mixin id="sphere" geometry="primitive: sphere"></a-mixin>
+            </a-assets>
+            <a-assets>
+                <audio id="background_audio" src="assets/song.m4a"></audio>
+            </a-assets>
+             <a-assets>
+       <img id="bg1" src="assets/bg1.jpg" />
+     
+       <img id="karagattam" src="assets/karagattam.jpg" />
+       <img id="karagattam1" src="assets/karagattam1.jpg" />
+       <img id="pongal-pot" src="assets/pongal-pot.jpg" />
+      
+<img id="desc2" src="assets/desc2.jpg" />  
+            </a-assets>
+            <a-image id="mute-image" src="#mute" position="-1 0 0"></a-image>
+            <a-image id="close-image" src="#close" position="1 0 0"></a-image>
+            <a-entity position="0 2 4">
+                <a-entity camera look-controls wasd-controls>
+                    <a-entity position="0 0 -3" scale="0.2 0.2 0.2" geometry="primitive: ring; radiusOuter: 0.20;radiusInner: 0.10;" material="color: #ADD8E6; shader: flat" cursor="maxDistance: 30; fuse: true">
+                        <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+                        <a-animation begin="fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.2 0.2 0.2" dur="1500"></a-animation>
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+<a-entity>
+    <a-animation attribute="position" from="-15 -10 -5" to="-15 -10 -5" repeat="indefinite"></a-animation>
+     <a-image position="16 4 -15" height="10" width="10"  src="#pongal-pot"></a-image>
+     </a-entity>
+    
+  
+
+
+
+<a-entity>
+    <a-animation attribute="position" from="-45 -10 -5" to="45 -10 -5" repeat="indefinite"></a-animation>
+     <a-image position="16 4 -15" height="15" width="15"  src="#karagattam"></a-image>
+     </a-entity>
+
+<a-entity>
+    <a-animation attribute="position" from="35 -10 -5" to="-35 -10 -5" repeat="indefinite"></a-animation>
+     <a-image position="16 4 -15" height="15" width="15"  src="#karagattam1"></a-image>
+     </a-entity>
+
+<a-entity>
+    <a-animation attribute="position" from="-10 20 -40" to="-10 20 -40" repeat="0"></a-animation>
+     <a-image position="16 4 -15" height="45" width="50"  src="#desc2"></a-image>
+     </a-entity>
+
+    
+     <a-entity position="-5 -5 -15">
+            <a-entity geometry="primitive: sphere; radius: 1" position="-1 1 0" material="color: #d50f25">
+                <a-animation attribute="position" from="-30 1 -15" to="19 1 -15" duration="3000" direction="normal" repeat="indefinite"></a-animation></a-entity>
+           
+     
+                
+     <a-sky src="#bg1"></a-sky>
+        </a-scene>
+        <script>
+            AFRAME.registerComponent('auto-enter-vr', {
+               init: function () {
+                this.el.sceneEl.enterVR();
+               }
+            });
+            
+            var template = $('#hidden-template').html();
+            var audio = document.querySelector('#background_audio');
+            audio.addEventListener('loadeddata', function() {
+                audio.play();
+                $('a-scene').append(template);
+            });
+            var muted = false;
+            var muteImage = document.querySelector("#mute-image");
+            document.querySelector('#mute-image').addEventListener('click', function() {
+                muted = !muted;
+                document.getElementById('background_audio').muted = muted;
+                if (muted) {
+                    muteImage.setAttribute('material', {
+                        'src': '#unmute',
+                        'transparent': true
+                    });
+                } else {
+                    muteImage.setAttribute('material', {
+                        'src': '#mute',
+                        'transparent': true
+                    });
+                }
+            });
+           document.querySelector("#close-image").addEventListener('click', function() {
+            window.location.href = "../../index.html";
+       
+        });
+        </script>
+        
+   
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MozTN wishes</title>
+        <meta name="description" content="">
+        <script src="./js/aframe.min.js"></script>
+        <script src="./js/aframe-bmfont-text-component.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <a-scene auto-enter-vr>
+            <a-assets>
+                <img id="mute" src="assets/volume-mute.png">
+                <img id="unmute" src="assets/volume-high_2.png">
+                <img id="close" src="assets/close-circled.png">
+                <a-mixin id="cube" geometry="primitive: box"></a-mixin>
+                <a-mixin id="cube-hovered" material="color: magenta"></a-mixin>
+                <a-mixin id="cube-selected" material="color: cyan"></a-mixin>
+                <a-mixin id="red" material="color: red"></a-mixin>
+                <a-mixin id="green" material="color: green"></a-mixin>
+                <a-mixin id="blue" material="color: blue"></a-mixin>
+                <a-mixin id="yellow" material="color: yellow"></a-mixin>
+                <a-mixin id="sphere" geometry="primitive: sphere"></a-mixin>
+            </a-assets>
+          <a-assets>
+                <audio id="background_audio" src="assets/song.mp3"></audio>
+            </a-assets>
+             <a-assets>
+       <img id="bg1" src="assets/bg1.jpg" />
+       <img id="one" src="assets/one.jpg" />
+      <img id="two" src="assets/two.jpg" />
+ <img id="three" src="assets/three.jpg" />
+ <img id="four" src="assets/four.jpg" />
+ <img id="five" src="assets/five.jpg" />
+            </a-assets>
+            <a-image id="mute-image" src="#mute" position="-1 0 0"></a-image>
+            <a-image id="close-image" src="#close" position="1 0 0"></a-image>
+            <a-entity position="0 2 4">
+                <a-entity camera look-controls wasd-controls>
+                    <a-entity position="0 0 -3" scale="0.2 0.2 0.2" geometry="primitive: ring; radiusOuter: 0.20;radiusInner: 0.10;" material="color: #ADD8E6; shader: flat" cursor="maxDistance: 30; fuse: true">
+                        <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+                        <a-animation begin="fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.2 0.2 0.2" dur="1500"></a-animation>
+                    </a-entity>
+                </a-entity>
+            </a-entity>
+
+
+
+  <a-curvedimage id="1" src="#one" transparent="true" 
+              height="3" radius="3" theta-length="40" rotation="0 240 0" position="-5 3 -2">
+            </a-curvedimage>
+
+            <a-curvedimage id="2" src="#two" transparent="true" 
+              height="3" radius="3" theta-length="40" rotation="0 200 0" position="-3 3 -2">
+            </a-curvedimage>
+            
+		
+<a-entity>
+    <a-animation attribute="position" from="-16 1 -2" to="-16 1 2" repeat="indefinite"></a-animation>
+     <a-image position="16 4 -15" height="6" width="6"  src="#three"></a-image>
+     </a-entity>
+
+
+
+            <a-curvedimage id="4" src="#four" transparent="true" 
+              height="3" radius="3" theta-length="40" rotation="0  150 0" position="4 3 -2">
+            </a-curvedimage>
+            
+            <a-curvedimage id="5" src="#five" transparent="true" 
+              height="3" radius="3" theta-length="40" rotation="0  90 0" position="5 3 -2">
+            </a-curvedimage>
+
+          <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
+          <a-light type="ambient" color="#fff"></a-light>
+          <a-sky color="rgb(200,200,200)" opacity="0.5"></a-sky>
+       
+                
+     <a-sky src="#bg1"></a-sky>
+        </a-scene>
+        <script>
+            AFRAME.registerComponent('auto-enter-vr', {
+               init: function () {
+                this.el.sceneEl.enterVR();
+               }
+            });
+            
+            var template = $('#hidden-template').html();
+            var audio = document.querySelector('#background_audio');
+            audio.addEventListener('loadeddata', function() {
+                audio.play();
+                $('a-scene').append(template);
+            });
+            var muted = false;
+            var muteImage = document.querySelector("#mute-image");
+            document.querySelector('#mute-image').addEventListener('click', function() {
+                muted = !muted;
+                document.getElementById('background_audio').muted = muted;
+                if (muted) {
+                    muteImage.setAttribute('material', {
+                        'src': '#unmute',
+                        'transparent': true
+                    });
+                } else {
+                    muteImage.setAttribute('material', {
+                        'src': '#mute',
+                        'transparent': true
+                    });
+                }
+            });
+           document.querySelector("#close-image").addEventListener('click', function() {
+            window.location.href = "../index.html";
+       
+        });
+        </script>
+        
+   
+    </body>
+</html>
